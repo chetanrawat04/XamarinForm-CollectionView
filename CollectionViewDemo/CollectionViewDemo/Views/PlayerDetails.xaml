@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CollectionViewDemo.Views.PlayerDetails"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:CollectionViewDemo.Control"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions">
+
+
+
+    <pancake:PancakeView
+        Padding="0"
+        sharedTransitions:Transition.Name="DogBackground"
+        BackgroundGradientEndColor="DodgerBlue"
+        BackgroundGradientStartColor="DarkSlateBlue"
+        CornerRadius="0">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ffimageloading:CachedImage
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                sharedTransitions:Transition.Name="DogImage"
+                Aspect="AspectFit"
+                Source="{Binding Image}" />
+            <controls:ParallaxControl
+                x:Name="Parallax"
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                VerticalScrollBarVisibility="Never">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <pancake:PancakeView
+                        Grid.Row="1"
+                        Margin="0,20,0,0"
+                        BackgroundGradientEndColor="#6299f2"
+                        BackgroundGradientStartColor="#8891f2"
+                        CornerRadius="24, 24, 0, 0">
+                        <StackLayout
+                            Padding="0,10"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <Label
+                                sharedTransitions:Transition.Name="PlayerTitle"
+                                FontAttributes="Bold"
+                                FontSize="Large"
+                                HorizontalOptions="Center"
+                                Text="{Binding Name}"
+                                TextColor="White" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                TextColor="White">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Point: " />
+                                        <Span Text="{Binding TotalPoint}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                TextColor="White">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Age: " />
+                                        <Span Text="{Binding Age}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="20,0,20,0"
+                                FontSize="Medium"
+                                Text="{Binding Description}"
+                                TextColor="White" />
+                        </StackLayout>
+                    </pancake:PancakeView>
+                </Grid>
+            </controls:ParallaxControl>
+        </Grid>
+    </pancake:PancakeView>
+
+
+
+
+</ContentPage>

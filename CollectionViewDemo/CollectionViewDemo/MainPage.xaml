@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CollectionViewDemo.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:local1="clr-namespace:CollectionViewDemo.ViewModel"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
+    sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="Fade"
+    sharedTransitions:SharedTransitionNavigationPage.TransitionDuration="300"
+    sharedTransitions:SharedTransitionNavigationPage.TransitionSelectedGroup="{Binding SelectedDogId}"
+    mc:Ignorable="dd">
+    <ContentPage.BindingContext>
+        <local1:PlayerListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="TextColor" Value="#6299f2" />
+                <Setter Property="Margin" Value="0, 12, 0, 6" />
+            </Style>
+            <Style x:Key="SubTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="#6299f2" />
+                <Setter Property="Margin" Value="0, 0, 0, 18" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+
+            <StackLayout
+                Padding="2"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Fill">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="ICC Player Rankings for ODI Batsmen - 2019"
+                    TextColor="Black"
+                    VerticalOptions="Fill" />
+            </StackLayout>
+            <CollectionView
+                x:Name="playerList"
+                Grid.Row="1"
+                Margin="12,0"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsSource="{Binding Plants}"
+                SelectedItem="{Binding SelectedPlant, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding SelectCommand}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <pancakeview:PancakeView
+                                Margin="12,5,12,5"
+                                sharedTransitions:Transition.Group="{Binding Id}"
+                                sharedTransitions:Transition.Name="DogBackground"
+                                BackgroundGradientEndColor="#6299f2"
+                                BackgroundGradientStartColor="#8891f2"
+                                BorderThickness="1"
+                                CornerRadius="18,18,0,0">
+                                <Grid BackgroundColor="Transparent">
+                                    <Grid RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <ffimageloading:CachedImage
+                                            Grid.Row="0"
+                                            sharedTransitions:Transition.Group="{Binding Id}"
+                                            sharedTransitions:Transition.Name="PlayerTitle"
+                                            Aspect="AspectFit"
+                                            Source="{Binding Image}" />
+                                        <StackLayout
+                                            Grid.Row="1"
+                                            BackgroundColor="#E0E0E0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Spacing="0"
+                                            VerticalOptions="FillAndExpand">
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource TitleStyle}"
+                                                Text="{Binding Name}"
+                                                TextColor="#6299f2" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource SubTitleStyle}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="Medium" Text="Point: " />
+                                                        <Span Text="{Binding TotalPoint}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource SubTitleStyle}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="Medium" Text="Age: " />
+                                                        <Span Text="{Binding Age}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </pancakeview:PancakeView>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
